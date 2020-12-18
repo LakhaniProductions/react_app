@@ -4,11 +4,11 @@ import Lost from './Lost';
 
 const PhotoContainer = props => {
   const results = props.data;
-  
+  console.log(results)
 
-  let photos = results.map(photo =>
-    <Photo server={photo.photo.server}/>
-  );
+  // let photos = results.map(photo =>
+  //   <Photo server={photo.photo.server}/>
+  // );
 
   return (
    
