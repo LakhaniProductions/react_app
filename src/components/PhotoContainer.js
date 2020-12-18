@@ -6,6 +6,9 @@ const PhotoContainer = props => {
   const results = props.data;
   console.log(results)
 
+  let images = results.map(image => 
+    <Photo server={image.photo.server}/>
+  );
   // let photos = results.map(photo =>
   //   <Photo server={photo.photo.server}/>
   // );
