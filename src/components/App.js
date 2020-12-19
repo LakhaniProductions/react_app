@@ -1,4 +1,8 @@
 import React, {Component} from 'react';
+import {
+  BrowserRouter,
+  Route
+} from 'react-router-dom';
 import Form from './Form';
 import Nav from './Nav';
 import apiKey from './config';
@@ -16,21 +20,33 @@ class App extends Component {
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=dogs&per_page=24&format=json&nojsoncallback=1`)
       .then(response => {
         this.setState({
-          images: response.data.photos
+          images: response.data.photos.photo
         });
-      })
+      }) 
       .catch(error => {
         console.log('Error fetching and parsing data', error);
       });
   }
 
+  
+
   render(){
     return (
-      <div>
-        <Form />
-        <Nav />
-        <PhotoContainer data={this.state.images}/>
-      </div>
+      <BrowserRouter>
+        <div className="container">
+          <Form />
+          <Nav data={this.state.images}/>
+          <Route path="/results" render={() => <PhotoContainer data={this.state.images} title= 'Results' /> } />
+
+        </div>
+      </BrowserRouter>
+
+
+      // <div className="container">
+      //   <Form />
+      //   <Nav />
+      //   <PhotoContainer data={this.state.images}/>
+      // </div>
     );
   }
 }
