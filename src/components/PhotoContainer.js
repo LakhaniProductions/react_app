@@ -4,22 +4,19 @@ import Lost from './Lost';
 
 const PhotoContainer = props => {
   const results = props.data;
-  console.log(results)
+  console.log(results);
 
   let images = results.map(image => 
-    <Photo server={image.photo.server}/>
+    <Photo server={image.server} id={image.id} secret={image.secret} title={image.title} key={image.id.toString()} />
   );
-  // let photos = results.map(photo =>
-  //   <Photo server={photo.photo.server}/>
-  // );
 
   return (
    
     <div className="photo-container">
-      <h2>Results</h2>
+      <h2>{props.title}</h2>
       <ul>
 
-        <Photo />
+        {images}
         <Lost />
       </ul>
     </div>
