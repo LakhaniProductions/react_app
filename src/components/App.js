@@ -13,44 +13,37 @@ import PhotoContainer from './PhotoContainer';
 class App extends Component {
   
   state = {
-    images: []
+    images: [],
+    loading:true
   };
 
   componentDidMount() {
-    
+    this.performSearch();
   }
 
-  performSearch = (query) => {
-    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}s&per_page=24&format=json&nojsoncallback=1`)
+  performSearch = (query = 'toyota supra') => {
+    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
       .then(response => {
         this.setState({
-          images: response.data.photos.photo
+          images: response.data.photos.photo,
+          loading: false
         });
       }) 
       .catch(error => {
         console.log('Error fetching and parsing data', error);
       });
   }
-
   
-
   render(){
     return (
       <BrowserRouter>
         <div className="container">
           <Form onSearch={this.performSearch}/>
           <Nav />
-          <Route path="/results" render={() => <PhotoContainer data={this.state.images} title= 'Results' /> } />
+          <PhotoContainer data={this.state.images} title= 'Results' />
 
         </div>
       </BrowserRouter>
-
-
-      // <div className="container">
-      //   <Form />
-      //   <Nav />
-      //   <PhotoContainer data={this.state.images}/>
-      // </div>
     );
   }
 }
