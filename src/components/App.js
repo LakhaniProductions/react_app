@@ -33,14 +33,19 @@ class App extends Component {
         console.log('Error fetching and parsing data', error);
       });
   }
-  
+
   render(){
     return (
       <BrowserRouter>
         <div className="container">
           <Form onSearch={this.performSearch}/>
           <Nav />
-          <PhotoContainer data={this.state.images} title= 'Results' />
+          {
+            (this.state.loading)
+            ?<p>Loading...</p>
+            :<PhotoContainer data={this.state.images} title= 'Results' />
+          }
+          
 
         </div>
       </BrowserRouter>
