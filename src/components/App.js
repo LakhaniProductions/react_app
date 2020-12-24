@@ -73,6 +73,7 @@ class App extends Component {
           <Route path="/cats" render={() => <PhotoContainer data={this.state.cats} title= 'Cat Images'/>} />
           <Route path="/dogs" render={() => <PhotoContainer data={this.state.dogs} title= 'Dog Images'/>} />
           <Route path="/computers" render={() => <PhotoContainer data={this.state.computers} title= 'Computers'/>} />
+          <Route path="/:query" render={() => <PhotoContainer data={this.state.images} title= 'Computers'/>} />
           
          
           
