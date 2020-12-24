@@ -12,10 +12,10 @@ class Form extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        this.props.onSearch(this.query.value);
-
-        const {history}= this.props;
         let query=(this.query.value);
+        this.props.onSearch(query);
+        const {history}= this.props;
+    
         history.push(query);
         e.currentTarget.reset();
     }

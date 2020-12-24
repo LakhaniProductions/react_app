@@ -17,6 +17,7 @@ class App extends Component {
     cats: [],
     dogs: [],
     computers: [],
+    query: [],
     loading:true
   };
 
@@ -25,6 +26,8 @@ class App extends Component {
     this.performSearch('cats')
     this.performSearch('dogs')
     this.performSearch('computers')
+    //this.performSearch('UsersInput')
+    
   }
 
   
@@ -38,19 +41,16 @@ class App extends Component {
           });
         } else if (query === 'dogs') {
           this.setState({
-          
             dogs: response.data.photos.photo,
             loading: false
           });
         } else if (query === 'computers') {
           this.setState({
-          
             computers: response.data.photos.photo,
             loading: false
           });
         } else {
           this.setState({
-          
             images: response.data.photos.photo,
             loading: false
           });
@@ -73,7 +73,7 @@ class App extends Component {
           <Route path="/cats" render={() => <PhotoContainer data={this.state.cats} title= 'Cat Images'/>} />
           <Route path="/dogs" render={() => <PhotoContainer data={this.state.dogs} title= 'Dog Images'/>} />
           <Route path="/computers" render={() => <PhotoContainer data={this.state.computers} title= 'Computers'/>} />
-          <Route path="/query" render={() => <PhotoContainer data={this.state.computers} title= 'Computers'/>} />
+          
          
           
           {
