@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-
+import {
+  Route
+} from 'react-router-dom';
+import PhotoContainer from './PhotoContainer';
 import Form from './Form';
 import Nav from './Nav';
 import apiKey from './config';
 import axios from 'axios';
-
-
 
 class App extends Component {
   
@@ -67,9 +68,19 @@ class App extends Component {
           <Form onSearch={this.performSearch}/>
           <Nav />
           
-    
+          <Route path="/cats" render={() => <PhotoContainer data={this.state.cats} title= 'Cat Images'/>} />
+          <Route path="/dogs" render={() => <PhotoContainer data={this.state.dogs} title= 'Dog Images'/>} />
+          <Route path="/computers" render={() => <PhotoContainer data={this.state.computers} title= 'Computers'/>} />
+          <Route path="/:query" render={() => <PhotoContainer data={this.state.images} title= 'Computers'/>} />
+           
+          {
+            (this.state.loading)
+            ?<p>Loading...</p>
+            : <Route exact path="/" render={() => <PhotoContainer data={this.state.images} title= 'Supra Images'/>} />
+          }
+
         </div>
-      
+     
     );
   }
 }
