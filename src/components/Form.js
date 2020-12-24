@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom';
 
 class Form extends Component {
     state = {
@@ -11,7 +12,11 @@ class Form extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        this.props.onSearch(this.query.value)
+        this.props.onSearch(this.query.value);
+
+        const {history}= this.props;
+        let query=(this.query.value);
+        history.push(query);
         e.currentTarget.reset();
     }
     render(){
@@ -33,4 +38,4 @@ class Form extends Component {
     }
 }
 
-export default Form;
+export default withRouter(Form);

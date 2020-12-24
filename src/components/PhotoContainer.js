@@ -5,7 +5,7 @@ import Lost from './Lost';
 const PhotoContainer = props => {
   const results = props.data;
   let images;
-  if(results.length > 0 ) {
+  if(results.length > 0) {
     images = results.map(image => <Photo server={image.server} id={image.id} secret={image.secret} title={image.title} key={image.id.toString()} /> );
   } else {
     images = <Lost />
