@@ -13,7 +13,8 @@ class Form extends Component {
     handleSubmit = e => {
         e.preventDefault();
         let query=(this.query.value);
-        this.props.onSearch(query);
+        
+        this.props.onSearch(query);;
         const {history}= this.props;
     
         history.push(query);
