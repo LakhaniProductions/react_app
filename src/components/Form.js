@@ -14,9 +14,9 @@ class Form extends Component {
         e.preventDefault();
         let query=(this.query.value);
         
-        this.props.onSearch(query);;
+        this.props.onSearch(query);
         const {history}= this.props;
-        console.log(this.props)
+        
     
         history.push(query);
         e.currentTarget.reset();
