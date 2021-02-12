@@ -88,13 +88,13 @@ class App extends Component {
             <Route path="/cats" render={() => <PhotoContainer data={this.state.cats} title= 'Cat Images' />} />
             <Route path="/dogs" render={() => <PhotoContainer data={this.state.dogs} title= 'Dog Images' />} />
             <Route path="/sharks" render={() => <PhotoContainer data={this.state.sharks} title= 'Shark Images' />} />
-            <Route component={NotFound}/>
             
             {
               (this.state.loading)
               ?<p>Loading...</p>
-              :  <Route exact path="/search/:query"  render={() => <PhotoContainer data={this.state.query} title= {this.props.location.pathname.replace(/[^\w\s]/gi, '').replace("search", '') + ' Images' } />} />
+              :  <Route path="/search/:query"  render={() => <PhotoContainer data={this.state.query} title= {this.props.location.pathname.replace(/[^\w\s]/gi, '').replace("search", '') + ' Images' } />} />
             }
+            <Route component={NotFound}/>
 
           </Switch>
           
