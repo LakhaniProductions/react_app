@@ -16,14 +16,13 @@ class Form extends Component {
         
         this.props.onSearch(query);
         const {history}= this.props;
-        
     
-        history.push(query);
+        history.push('/search/' + query);
         e.currentTarget.reset();
     }
     render(){
         return (
-            
+
             <form className="search-form" onSubmit={this.handleSubmit}>
                 <input type="search" 
                 onChange={this.onSearchChange}

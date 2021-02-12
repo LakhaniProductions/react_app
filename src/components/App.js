@@ -1,19 +1,22 @@
 import React, {Component} from 'react';
 import {
   Route,
-  withRouter
+  withRouter,
+  Switch
 } from 'react-router-dom';
 import Form from './Form';
 import Nav from './Nav';
 import apiKey from './config';
 import axios from 'axios';
 import PhotoContainer from './PhotoContainer';
+import NotFound from'./NotFound';
 
 
 class App extends Component {
   
   state = {
     images: [],
+    query:[],
     cats: [],
     dogs: [],
     sharks: [],
@@ -21,13 +24,18 @@ class App extends Component {
   };
 
   componentDidMount() {
-    let queryTerm= this.props.location.pathname.replace(/[^\w\s]/gi, '');
-    console.log(`${queryTerm}`);
+
+    let path= this.props.location.pathname;
+
     this.performSearch()
-    //this.performSearch(`${queryTerm}`)
     this.performSearch('cats')
     this.performSearch('dogs')
     this.performSearch('sharks')  
+
+    if(path.includes("search")){
+      let newPath= path.replace(/[^\w\s]/gi, '').replace("search", '');
+      return this.performSearch(newPath);
+    }
   }
 
   
@@ -49,13 +57,17 @@ class App extends Component {
             sharks: response.data.photos.photo,
             loading: false
           });
-        } else {
+        } else if (query === 'toyota supra') {
           this.setState({
             images: response.data.photos.photo,
             loading: false
           });
+        } else {
+          this.setState({
+            query: response.data.photos.photo,
+            loading: false
+          });
         }
-        
       }) 
       .catch(error => {
         console.log('Error fetching and parsing data', error);
@@ -63,28 +75,28 @@ class App extends Component {
   }
 
   render(){
+   
     return (
-     
-      
+    
         <div className="container">
           <Form onSearch={this.performSearch}/>
-
+      
           <Nav />
           
-          <Route exact path="/" render={() => <PhotoContainer data={this.state.images} title= 'Supra Images' />} />
-          <Route path="/search/:query" render={() => <PhotoContainer data={this.state.images} title= {this.props.location.pathname.replace(/[^\w\s]/gi, '') + ' Images' } />} />
-          <Route path="/cats" render={() => <PhotoContainer data={this.state.cats} title= 'Cat Images' />} />
-          <Route path="/dogs" render={() => <PhotoContainer data={this.state.dogs} title= 'Dog Images' />} />
-          <Route path="/sharks" render={() => <PhotoContainer data={this.state.sharks} title= 'Shark Images' />} />
-         
-          
-          
-          
-          {/* {
-            (this.state.loading)
-            ?<p>Loading...</p>
-            : <Route exact path="/" render={() => <PhotoContainer data={this.state.images} title= 'Supra Images' />} />
-          } */}
+          <Switch>
+            <Route exact path="/" render={() => <PhotoContainer data={this.state.images} title= 'Supra Images' />} />
+            <Route path="/cats" render={() => <PhotoContainer data={this.state.cats} title= 'Cat Images' />} />
+            <Route path="/dogs" render={() => <PhotoContainer data={this.state.dogs} title= 'Dog Images' />} />
+            <Route path="/sharks" render={() => <PhotoContainer data={this.state.sharks} title= 'Shark Images' />} />
+            <Route component={NotFound}/>
+            
+            {
+              (this.state.loading)
+              ?<p>Loading...</p>
+              :  <Route exact path="/search/:query"  render={() => <PhotoContainer data={this.state.query} title= {this.props.location.pathname.replace(/[^\w\s]/gi, '').replace("search", '') + ' Images' } />} />
+            }
+
+          </Switch>
           
 
         </div>
