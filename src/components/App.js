@@ -62,7 +62,7 @@ class App extends Component {
             images: response.data.photos.photo,
             loading: false
           });
-        } else {
+        } else { 
           this.setState({
             query: response.data.photos.photo,
             loading: false
@@ -88,6 +88,7 @@ class App extends Component {
             <Route path="/cats" render={() => <PhotoContainer data={this.state.cats} title= 'Cat Images' />} />
             <Route path="/dogs" render={() => <PhotoContainer data={this.state.dogs} title= 'Dog Images' />} />
             <Route path="/sharks" render={() => <PhotoContainer data={this.state.sharks} title= 'Shark Images' />} />
+            <Route path="/toyota supra" render={() => <PhotoContainer data={this.state.images} title= 'Supra Images' />} />
             
             {
               (this.state.loading)

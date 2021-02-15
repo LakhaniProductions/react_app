@@ -16,8 +16,12 @@ class Form extends Component {
         
         this.props.onSearch(query);
         const {history}= this.props;
-    
-        history.push('/search/' + query);
+        if(query === 'cats' || query === 'dogs' || query === 'sharks' || query === 'toyota supra'){
+            history.push(query);
+        } else {
+            history.push('/search/' + query);
+        }
+        
         e.currentTarget.reset();
     }
     render(){
