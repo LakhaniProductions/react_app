@@ -24,49 +24,30 @@ class App extends Component {
   };
 
   componentDidMount() {
-    
+    let path= this.props.location.pathname;
     this.performSearch()
-    
-    // let path= this.props.location.pathname;
-
-    
     this.performSearch('cats')
     this.performSearch('dogs')
     this.performSearch('sharks')  
 
-    // if(path.includes("search")){
-    //   let newPath= path.replace(/[^\w\s]/gi, '').replace("search", '');
-    //   return this.performSearch(newPath);
-    // }
-    
-    
-    
+    if(path.includes("search")){
+      let newPath= path.replace(/[^\w\s]/gi, '').replace("search", '');
+      return this.performSearch(newPath);
+    }
   }
 
   componentDidUpdate(prevProps) {
-
-    //const {history} = this.props;
-  
-    // console.log(history);
-    // console.log(this.props.location);
     let path= this.props.location.pathname;
 
     if (prevProps.location.pathname !== this.props.location.pathname) {
-
       if(path.includes("search")){
         let newPath= path.replace(/[^\w\s]/gi, '').replace("search", '');
-        //history.push(newPath);
         return this.performSearch(newPath); 
-      }
-      
+      }    
     }
-    // const {history} = this.props;
-    // const {match} = this.props;
-    // console.log(match,history);
-   
     
   }
- 
+
   
   performSearch = (query= 'toyota supra') => {
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
@@ -114,17 +95,12 @@ class App extends Component {
           
           <Switch>
               
-              <Route exact path="/" render={() => <PhotoContainer data={this.state.images} title= 'Supra Images' />} />
-              <Route path="/cats" render={() => <PhotoContainer data={this.state.cats} title= 'Cat Images' />} />
-              <Route path="/dogs" render={() => <PhotoContainer data={this.state.dogs} title= 'Dog Images' />} />
-              <Route path="/sharks" render={() => <PhotoContainer data={this.state.sharks} title= 'Shark Images' />} />
-              <Route path="/toyota supra" render={() => <PhotoContainer data={this.state.images} title= 'Supra Images' />} />
-              <Route path="/search/:query"  render={() => <PhotoContainer data={this.state.query} title= {this.props.location.pathname.replace(/[^\w\s]/gi, '').replace("search", '') + ' Images' } />} />
-              {/* {
-                (this.state.loading)
-                ?<p>Loading...</p>
-                :  <Route path="/search/:query"  render={() => <PhotoContainer data={this.state.query} title= {this.props.location.pathname.replace(/[^\w\s]/gi, '').replace("search", '') + ' Images' } />} />
-              } */}
+              <Route exact path="/" render={() => <PhotoContainer data={this.state.images} loading={this.state.loading} title= 'Supra Images' />} />
+              <Route path="/cats" render={() => <PhotoContainer data={this.state.cats} loading={this.state.loading} title= 'Cat Images' />} />
+              <Route path="/dogs" render={() => <PhotoContainer data={this.state.dogs} loading={this.state.loading} title= 'Dog Images' />} />
+              <Route path="/sharks" render={() => <PhotoContainer data={this.state.sharks} loading={this.state.loading} title= 'Shark Images' />} />
+              <Route path="/toyota supra" render={() => <PhotoContainer data={this.state.images} loading={this.state.loading} title= 'Supra Images' />} />
+              <Route path="/search/:query"  render={() => <PhotoContainer data={this.state.query} loading={this.state.loading} title= {this.props.location.pathname.replace(/[^\w\s]/gi, '').replace("search", '') + ' Images' } />} />
               <Route component={NotFound}/>
               
           </Switch>
