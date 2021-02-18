@@ -5,7 +5,7 @@ class Form extends Component {
     state = {
         searchText: ''
     }
-
+    
     onSearchChange = e => {
         this.setState({searchText: e.target.value})
     }
